@@ -1,44 +1,13 @@
-import * as grpc from "@grpc/grpc-js"
-import * as protoLoader from "@grpc/proto-loader"
+import { GRPCNameClientService } from "./grpc"
 
-const PROTO_PATH = __dirname + "/../proto/nameService.proto"
+async function main() {
+  const client = new GRPCNameClientService().getClient()
 
-const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
-  keepCase: true,
-  longs: String,
-  enums: String,
-  defaults: true,
-  oneofs: true,
-})
+  const fullNameResult = await client.getFullName({
+    firstName: "Hello",
+    lastName: "Hello",
+  })
+  console.log(fullNameResult)
+}
 
-const HOST = "localhost"
-const PORT = 50051
-const nameServiceProto: any =
-  grpc.loadPackageDefinition(packageDefinition).nameService
-
-const client = new nameServiceProto.NameService(
-  HOST + ":" + PORT,
-  grpc.credentials.createInsecure()
-)
-
-client.getFormattedString(
-  { firstName: "Arka", middleName: "Dev", lastName: "Banerjee" },
-  function (err: any, response: { formattedString: string }) {
-    if (err) {
-      console.log(err.message)
-      return
-    }
-    console.log("Got Response:", response.formattedString)
-  }
-)
-
-client.getFullName(
-  { firstName: "Arka", middleName: "Dev", lastName: "Banerjee" },
-  function (err: any, response: { fullName: string }) {
-    if (err) {
-      console.log(err.message)
-      return
-    }
-    console.log("Got Response:", response.fullName)
-  }
-)
+main().catch((e) => console.log(e))

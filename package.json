@@ -5,8 +5,8 @@
   "main": "build/index.js",
   "scripts": {
     "compile": "tsc",
-    "run:server": "node build/server.js",
-    "run:client": "node build/client.js"
+    "run:server": "npm run compile && node build/server.js",
+    "run:client": "npm run compile && node build/client.js"
   },
   "keywords": [],
   "author": "",
