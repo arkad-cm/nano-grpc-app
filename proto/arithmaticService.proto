@@ -3,26 +3,10 @@ syntax = "proto3";
 package arithmaticService;
 
 service ArithmaticService {
-    rpc getFormattedString (NamePayload) returns (FormattedPayload) {}
-    rpc getFullName (NamePayload) returns (FullNameResponse) {}
     rpc getSum (CalculationRequest) returns (CalculationResponse) {}
     rpc getDiff (CalculationRequest) returns (CalculationResponse) {}
     rpc multiply (CalculationRequest) returns (CalculationResponse) {}
     rpc divide (CalculationRequest) returns (CalculationResponse) {}
-}
-
-message NamePayload {
-    string firstName = 1;
-    string middleName = 2;
-    string lastName = 3;
-}
-
-message FormattedPayload {
-    string formattedString = 1;
-}
-
-message FullNameResponse {
-    string fullName = 1;
 }
 
 message CalculationRequest {
