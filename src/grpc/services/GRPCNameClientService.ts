@@ -1,8 +1,7 @@
-import { NameService } from "."
+import { GRPCPrototypes, NameService } from "."
 import { GRPCClient } from "../GRPCClient"
+import { ProtoDetail } from "./defs"
 
 export class GRPCNameClientService extends GRPCClient<NameService> {
-  protoPath: string = "proto/nameService.proto"
-  packageName: string = "nameService"
-  serviceName: string = "NameService"
+  config: ProtoDetail = GRPCPrototypes.NAME_SERVICE
 }

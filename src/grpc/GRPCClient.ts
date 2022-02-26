@@ -1,16 +1,16 @@
 import * as protoLoader from "@grpc/proto-loader"
 import * as grpc from "@grpc/grpc-js"
+import { ProtoDetail } from "."
 
 export abstract class GRPCClient<T> {
-  abstract protoPath: string
-  abstract packageName: string
-  abstract serviceName: string
+  abstract config: ProtoDetail
   private client: any
 
   constructor(private host = "0.0.0.0", private port = 50001) {}
 
   getClient(): T {
-    const packageDefinition = protoLoader.loadSync(this.protoPath, {
+    const { protoPath, packageName, serviceName } = this.config
+    const packageDefinition = protoLoader.loadSync(protoPath, {
       keepCase: true,
       longs: String,
       enums: String,
@@ -18,9 +18,9 @@ export abstract class GRPCClient<T> {
       oneofs: true,
     })
     const service: any =
-      grpc.loadPackageDefinition(packageDefinition)[this.packageName]
+      grpc.loadPackageDefinition(packageDefinition)[packageName]
 
-    this.client = new service[this.serviceName](
+    this.client = new service[serviceName](
       this.host + ":" + this.port,
       grpc.credentials.createInsecure()
     )
@@ -31,6 +31,7 @@ export abstract class GRPCClient<T> {
       )
     )
   }
+
   transformedClient(methodNames: string[]): T {
     const promifiedMethods: { [k: string]: (payload: any) => Promise<any> } = {}
     for (const mName of methodNames) {

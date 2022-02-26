@@ -1,8 +1,7 @@
-import { ArithmaticService } from "."
+import { ArithmaticService, GRPCPrototypes } from "."
 import { GRPCClient } from "../GRPCClient"
+import { ProtoDetail } from "./defs"
 
 export class GRPCArithmaticClientService extends GRPCClient<ArithmaticService> {
-  protoPath: string = "proto/arithmaticService.proto"
-  packageName: string = "arithmaticService"
-  serviceName: string = "ArithmaticService"
+  config: ProtoDetail = GRPCPrototypes.ARITHMATIC_SERVICE
 }

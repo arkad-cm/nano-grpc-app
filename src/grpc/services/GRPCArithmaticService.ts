@@ -1,13 +1,16 @@
 import { GRPCService } from "../GRPCService"
-import { ArithmaticService, CalculationRequest } from "./defs"
+import {
+  ArithmaticService,
+  CalculationRequest,
+  GRPCPrototypes,
+  ProtoDetail,
+} from "./defs"
 
 export class GRPCArithmaticService
   extends GRPCService
   implements ArithmaticService
 {
-  packageName: string = "arithmaticService"
-  serviceName: string = "ArithmaticService"
-  prototypePath: string = "proto/arithmaticService.proto"
+  config: ProtoDetail = GRPCPrototypes.ARITHMATIC_SERVICE
 
   async getSum(payload: CalculationRequest) {
     const { a, b } = payload

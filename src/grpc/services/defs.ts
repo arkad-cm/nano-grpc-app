@@ -36,3 +36,24 @@ export interface ArithmaticService {
   multiply: (payload: CalculationRequest) => Promise<CalculationResponse>
   divide: (payload: CalculationRequest) => Promise<CalculationResponse>
 }
+
+// enum for prototype config
+
+export interface ProtoDetail {
+  protoPath: string
+  packageName: string
+  serviceName: string
+}
+
+export const GRPCPrototypes = Object.freeze({
+  NAME_SERVICE: {
+    protoPath: "proto/nameService.proto",
+    packageName: "nameService",
+    serviceName: "NameService",
+  },
+  ARITHMATIC_SERVICE: {
+    protoPath: "proto/arithmaticService.proto",
+    packageName: "arithmaticService",
+    serviceName: "ArithmaticService",
+  },
+})

@@ -1,13 +1,13 @@
 import * as protoLoader from "@grpc/proto-loader"
 import * as grpc from "@grpc/grpc-js"
+import { ProtoDetail } from "."
 
 export abstract class GRPCService {
-  abstract packageName: string
-  abstract serviceName: string
-  abstract prototypePath: string
+  abstract config: ProtoDetail
 
   getPrototypalImplementations() {
-    const packageDefinition = protoLoader.loadSync(this.prototypePath, {
+    const { protoPath, packageName, serviceName } = this.config
+    const packageDefinition = protoLoader.loadSync(protoPath, {
       keepCase: true,
       longs: String,
       enums: String,
@@ -15,7 +15,7 @@ export abstract class GRPCService {
       oneofs: true,
     })
     const serviceProto: any =
-      grpc.loadPackageDefinition(packageDefinition)[this.packageName]
+      grpc.loadPackageDefinition(packageDefinition)[packageName]
     // Here, classRef is properly inferred to have a `getMessage` method.
     const prototype = Object.getPrototypeOf(this)
     const implementationNames = Object.getOwnPropertyNames(prototype).filter(
@@ -36,6 +36,6 @@ export abstract class GRPCService {
       }
     }
 
-    return [serviceProto[this.serviceName].service, callbackImplementations]
+    return [serviceProto[serviceName].service, callbackImplementations]
   }
 }
