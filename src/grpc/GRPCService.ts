@@ -5,7 +5,15 @@ import { ProtoDetail } from "."
 export abstract class GRPCService {
   abstract config: ProtoDetail
 
-  getPrototypalImplementations() {
+  getPrototypalImplementations(): [
+    any,
+    {
+      [k: string]: (
+        payload: any,
+        callback: (error: any, response: any) => void
+      ) => void
+    }
+  ] {
     const { protoPath, packageName, serviceName } = this.config
     const packageDefinition = protoLoader.loadSync(protoPath, {
       keepCase: true,
