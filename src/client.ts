@@ -1,8 +1,10 @@
-import { GRPCNameClientService } from "./grpc"
-import { GRPCArithmaticClientService } from "./grpc/services/GRPCArithmaticClientService"
+import { ArithmaticService, GRPCPrototypes, NameService } from "./grpc"
+import { GRPCClientService } from "./grpc/GRPCClient"
 
 async function main() {
-  const client = new GRPCNameClientService().getClient()
+  const client = new GRPCClientService<NameService>(
+    GRPCPrototypes.NAME_PROTO
+  ).getClient()
 
   const fullNameResponse = await client.getFullName({
     firstName: "Hello",
@@ -16,7 +18,9 @@ async function main() {
   })
   console.log(formattedResponse)
 
-  const aClient = new GRPCArithmaticClientService().getClient()
+  const aClient = new GRPCClientService<ArithmaticService>(
+    GRPCPrototypes.ARITHMATIC_PROTO
+  ).getClient()
 
   const divide = await aClient.divide({ a: 2, b: 8 })
   console.log(divide)

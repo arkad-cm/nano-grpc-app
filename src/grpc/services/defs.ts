@@ -46,12 +46,12 @@ export interface ProtoDetail {
 }
 
 export const GRPCPrototypes = Object.freeze({
-  NAME_SERVICE: {
+  NAME_PROTO: {
     protoPath: "proto/nameService.proto",
     packageName: "nameService",
     serviceName: "NameService",
   },
-  ARITHMATIC_SERVICE: {
+  ARITHMATIC_PROTO: {
     protoPath: "proto/arithmaticService.proto",
     packageName: "arithmaticService",
     serviceName: "ArithmaticService",

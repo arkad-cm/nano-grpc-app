@@ -3,7 +3,7 @@ import { GRPCService } from "../GRPCService"
 import { NameService, NamePayload, ProtoDetail } from "./defs"
 
 export class GRPCNameService extends GRPCService implements NameService {
-  config: ProtoDetail = GRPCPrototypes.NAME_SERVICE
+  config: ProtoDetail = GRPCPrototypes.NAME_PROTO
 
   async getFormattedString(payload: NamePayload) {
     const { firstName, lastName, middleName } = payload

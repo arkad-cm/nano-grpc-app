@@ -10,7 +10,7 @@ export class GRPCArithmaticService
   extends GRPCService
   implements ArithmaticService
 {
-  config: ProtoDetail = GRPCPrototypes.ARITHMATIC_SERVICE
+  config: ProtoDetail = GRPCPrototypes.ARITHMATIC_PROTO
 
   async getSum(payload: CalculationRequest) {
     const { a, b } = payload

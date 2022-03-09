@@ -2,11 +2,14 @@ import * as protoLoader from "@grpc/proto-loader"
 import * as grpc from "@grpc/grpc-js"
 import { ProtoDetail } from "."
 
-export abstract class GRPCClient<T> {
-  abstract config: ProtoDetail
+export class GRPCClientService<T> {
   private client: any
 
-  constructor(private host = "0.0.0.0", private port = 50001) {}
+  constructor(
+    private config: ProtoDetail,
+    private host = "0.0.0.0",
+    private port = 50001
+  ) {}
 
   getClient(): T {
     const { protoPath, packageName, serviceName } = this.config
